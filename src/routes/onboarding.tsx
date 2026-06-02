@@ -64,7 +64,19 @@ function Onboarding() {
             />
           ))}
         </div>
-        <GlowButton onClick={next}>{i < 2 ? "Next" : "Get Started"}</GlowButton>
+        <div className="flex gap-4">
+          {i > 0 && (
+            <button
+              onClick={() => setI(i - 1)}
+              className="flex-1 rounded-xl border border-border bg-card font-semibold text-muted-foreground hover:text-white transition-colors"
+            >
+              Back
+            </button>
+          )}
+          <div className={i > 0 ? "flex-[2]" : "w-full"}>
+            <GlowButton onClick={next} className="w-full">{i < 2 ? "Next" : "Get Started"}</GlowButton>
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   );
