@@ -235,7 +235,7 @@ export function SmartSearch() {
     : [];
 
   return (
-    <div className="relative flex-1 max-w-2xl mx-auto hidden sm:block" ref={searchRef}>
+    <div className="relative flex-1 mx-2 md:mx-4 max-w-2xl" ref={searchRef}>
       <div className="relative group">
         <Search className="pointer-events-none absolute inset-y-0 left-4 h-full w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
         <input
@@ -246,7 +246,7 @@ export function SmartSearch() {
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
-          placeholder={role === "volunteer" ? "Search cases, assigned tasks, history..." : "Search hospitals, volunteers, services..."}
+          placeholder={role === "volunteer" ? "Search tasks, history..." : "Search hospitals, help..."}
           className="block h-10 w-full rounded-full border border-border bg-secondary/50 py-1.5 pl-10 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all shadow-sm"
         />
         {query && (
@@ -283,7 +283,7 @@ export function SmartSearch() {
             ) : (
               <div className="p-6 text-center text-muted-foreground">
                 <Search className="h-6 w-6 mx-auto mb-2 opacity-50" />
-                <p className="text-sm font-medium">No exact matches found</p>
+                <p className="text-sm font-medium">No results found</p>
                 <p className="text-xs mt-1">Try a different keyword.</p>
               </div>
             )}
@@ -296,25 +296,27 @@ export function SmartSearch() {
 
 export function GlobalHeader() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center border-b border-border bg-background/80 backdrop-blur-md px-4 shadow-sm sm:px-6 lg:px-8 w-full">
       
-      {/* Left: Logo */}
-      <div className="flex items-center gap-3 md:w-64 shrink-0">
+      {/* Left: Back & Logo */}
+      <div className="flex items-center gap-1 md:gap-3 md:w-64 shrink-0">
+        <button
+          onClick={() => router.history.back()}
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-transparent hover:bg-secondary text-foreground active:scale-95 transition-all"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
         <Logo size={24} />
-        <Wordmark className="text-xl tracking-tight hidden md:block" />
+        <Wordmark className="text-xl tracking-tight hidden lg:block" />
       </div>
 
       {/* Center: Smart Search */}
       <SmartSearch />
 
-      {/* Mobile Search Icon Placeholder */}
-      <div className="flex-1 flex sm:hidden justify-end mr-4">
-        <button className="grid h-10 w-10 place-items-center rounded-full bg-secondary text-muted-foreground hover:text-foreground">
-          <Search className="h-5 w-5" />
-        </button>
-      </div>
+
 
       {/* Right: Actions */}
       <div className="flex items-center gap-x-2 md:gap-x-4 shrink-0 ml-auto">
