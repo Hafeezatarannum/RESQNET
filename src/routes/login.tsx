@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GlowButton, Field, Logo, Wordmark } from "@/components/resqnet/kit";
-import { Mail, Lock, ShieldCheck } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { Mail, Lock, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Login — ResQNet" }] }),
@@ -9,19 +8,27 @@ export const Route = createFileRoute("/login")({
 });
 
 function Login() {
-  const { t } = useTranslation();
   return (
-    <div className="flex min-h-screen w-full bg-background text-foreground">
-      {/* Left side: Form */}
-      <div className="flex w-full flex-col justify-center px-8 md:w-1/2 lg:px-24 xl:px-32 relative z-10">
-        <div className="mx-auto w-full max-w-sm">
-          <Link to="/" className="flex items-center gap-2 mb-12">
-            <Logo size={40} />
-            <Wordmark className="text-xl" />
-          </Link>
+    <div className="relative flex min-h-screen w-full items-center justify-center bg-background text-foreground overflow-hidden">
+      {/* Dynamic Abstract Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-brand-blue/10 rounded-full blur-[150px]" />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]" />
+      </div>
 
-          <h1 className="text-3xl font-bold mb-2">{t("auth.welcome")}</h1>
-          <p className="text-muted-foreground mb-8">{t("auth.loginToSave")}</p>
+      {/* Main Glass Card */}
+      <div className="relative z-10 w-full max-w-md px-6 py-10">
+        <div className="rounded-3xl border border-border bg-card/60 backdrop-blur-2xl p-8 shadow-2xl">
+          <div className="flex flex-col items-center mb-8">
+            <Link to="/" className="flex items-center gap-2 mb-6">
+              <Logo size={48} />
+            </Link>
+            <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
+            <p className="text-center text-sm text-muted-foreground">
+              Sign in to manage your emergency profile and active alerts.
+            </p>
+          </div>
 
           <div className="space-y-4">
             <Field
@@ -31,70 +38,55 @@ function Login() {
               placeholder="you@example.com"
             />
             <Field
-              label={t("auth.password")}
+              label="Password"
               icon={Lock}
               type="password"
               placeholder="••••••••"
             />
             <div className="flex justify-end">
-              <span className="text-xs text-primary font-medium hover:underline cursor-pointer">
-                {t("auth.forgot")}
+              <span className="text-xs text-primary font-medium hover:underline cursor-pointer transition-colors">
+                Forgot password?
               </span>
             </div>
-            <GlowButton to="/otp" className="w-full mt-2">
-              {t("general.login")}
+
+            <GlowButton to="/otp" className="w-full mt-6 h-12 text-base shadow-xl shadow-primary/20">
+              Log in
             </GlowButton>
 
             <div className="flex items-center gap-3 py-4 text-xs text-muted-foreground">
-              <span className="h-px flex-1 bg-border" /> {t("general.or")}{" "}
-              <span className="h-px flex-1 bg-border" />
+              <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
             </div>
 
-            <GlowButton
-              to="/role"
-              variant="outline"
-              className="w-full bg-secondary/50"
-            >
+            <button className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card/50 px-4 py-3 text-sm font-semibold hover:bg-secondary transition-colors">
               <img
                 src="https://www.google.com/favicon.ico"
-                alt=""
-                className="h-5 w-5 mr-2"
+                alt="Google"
+                className="h-5 w-5"
               />
-              {t("auth.google")}
-            </GlowButton>
+              Continue with Google
+            </button>
           </div>
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
-            {t("auth.newTo")}{" "}
+            Don't have an account?{" "}
             <Link
               to="/signup"
-              className="font-semibold text-primary hover:underline"
+              className="font-semibold text-primary hover:underline transition-colors"
             >
-              {t("auth.createAcc")}
+              Sign up
             </Link>
           </p>
         </div>
-      </div>
 
-      {/* Right side: Branding/Image */}
-      <div className="hidden md:flex relative w-1/2 items-center justify-center bg-secondary/30 overflow-hidden border-l border-border/50">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-blue/20 rounded-full blur-[100px]" />
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]" />
-        </div>
-
-        <div className="relative z-10 max-w-md p-8 border border-border bg-card/50 backdrop-blur-xl rounded-3xl text-center shadow-2xl">
-          <div className="h-16 w-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
-            <ShieldCheck className="h-8 w-8 text-primary" />
-          </div>
-          <h2 className="text-2xl font-bold mb-4">
-            Enterprise-grade emergency response.
-          </h2>
-          <p className="text-muted-foreground">
-            ResQNet connects you to the fastest emergency networks in your area,
-            reducing response times by up to 60%.
-          </p>
+        {/* Emergency Shortcut */}
+        <div className="mt-6 flex justify-center">
+          <Link
+            to="/power-sos"
+            className="group flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-6 py-3 text-sm font-bold text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <AlertTriangle className="h-4 w-4" />
+            Emergency Access
+          </Link>
         </div>
       </div>
     </div>
