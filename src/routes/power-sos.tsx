@@ -203,9 +203,9 @@ function SOSActivation() {
                   <p className="text-xs text-muted-foreground mt-0.5">EMT Basic • 1.2 km away</p>
                 </div>
                 <div className="flex gap-2">
-                  <button className="h-10 w-10 bg-success/10 text-success rounded-full flex items-center justify-center hover:bg-success/20 transition-colors">
+                  <a href="tel:+919876543210" onClick={() => alert("Push notification triggered to Vikram K.!")} className="h-10 w-10 bg-success/10 text-success rounded-full flex items-center justify-center hover:bg-success/20 transition-colors">
                     <Phone className="h-4 w-4" />
-                  </button>
+                  </a>
                   <button className="h-10 w-10 bg-brand-blue/10 text-brand-blue rounded-full flex items-center justify-center hover:bg-brand-blue/20 transition-colors">
                     <MessageSquare className="h-4 w-4" />
                   </button>
@@ -219,9 +219,9 @@ function SOSActivation() {
                   <p className="text-xs text-muted-foreground mt-0.5">CPR Certified • 2.5 km away</p>
                 </div>
                 <div className="flex gap-2">
-                  <button className="h-10 w-10 bg-success/10 text-success rounded-full flex items-center justify-center hover:bg-success/20 transition-colors">
+                  <a href="tel:+919876543210" onClick={() => alert("Push notification triggered to Rahul S.!")} className="h-10 w-10 bg-success/10 text-success rounded-full flex items-center justify-center hover:bg-success/20 transition-colors">
                     <Phone className="h-4 w-4" />
-                  </button>
+                  </a>
                   <button className="h-10 w-10 bg-brand-blue/10 text-brand-blue rounded-full flex items-center justify-center hover:bg-brand-blue/20 transition-colors">
                     <MessageSquare className="h-4 w-4" />
                   </button>

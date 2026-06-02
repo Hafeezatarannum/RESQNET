@@ -29,7 +29,7 @@ function MapScreen() {
       <div className="relative z-10 w-full max-w-[1400px] mx-auto p-6 md:p-8 h-screen flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Live Emergency Map</h1>
+            <h1 className="text-2xl font-bold">Chennai Fleet Live Map</h1>
             <p className="text-muted-foreground">
               Monitor real-time incidents and responder locations.
             </p>
@@ -39,7 +39,7 @@ function MapScreen() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search locations..."
+                placeholder="Search Chennai locations..."
                 className="pl-9 pr-4 py-2 bg-secondary/50 border border-border rounded-xl text-sm focus:outline-none focus:border-primary/50"
               />
             </div>

@@ -25,7 +25,7 @@ function Signup() {
   const [step, setStep] = useState(1);
   const [role, setRole] = useState<"help" | "volunteer" | null>(null);
 
-  const nextStep = () => setStep((s) => Math.min(5, s + 1));
+  const nextStep = () => setStep((s) => Math.min(4, s + 1));
   const prevStep = () => setStep((s) => Math.max(1, s - 1));
 
   const handleComplete = () => {
@@ -54,10 +54,10 @@ function Signup() {
             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-border rounded-full z-0"></div>
             <div
               className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full z-0 transition-all duration-500"
-              style={{ width: `${((step - 1) / 4) * 100}%` }}
+              style={{ width: `${((step - 1) / 3) * 100}%` }}
             ></div>
 
-            {[1, 2, 3, 4, 5].map((i) => (
+            {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
                 className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-colors duration-300 ${
@@ -73,7 +73,6 @@ function Signup() {
           <div className="flex justify-between mt-2 text-[10px] text-muted-foreground uppercase tracking-wider font-semibold px-1">
             <span>Profile</span>
             <span>Security</span>
-            <span>Role</span>
             <span>Contacts</span>
             <span>Medical</span>
           </div>
@@ -105,41 +104,9 @@ function Signup() {
               </div>
             )}
 
+
+
             {step === 3 && (
-              <div className="animate-fade-up">
-                <h2 className="text-2xl font-bold mb-2">How will you use ResQNet?</h2>
-                <p className="text-muted-foreground text-sm mb-6">Select your primary role in the network.</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <button
-                    onClick={() => setRole("help")}
-                    className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all duration-300 ${
-                      role === "help"
-                        ? "border-primary bg-primary/10 text-white"
-                        : "border-border bg-card/50 hover:bg-secondary/50 text-muted-foreground hover:text-white"
-                    }`}
-                  >
-                    <ShieldAlert className={`h-12 w-12 mb-4 ${role === "help" ? "text-primary" : ""}`} />
-                    <span className="font-bold text-lg">I Need Help</span>
-                    <span className="text-xs text-center mt-2 opacity-80">I want to alert my family and local responders in emergencies.</span>
-                  </button>
-
-                  <button
-                    onClick={() => setRole("volunteer")}
-                    className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all duration-300 ${
-                      role === "volunteer"
-                        ? "border-primary bg-primary/10 text-white"
-                        : "border-border bg-card/50 hover:bg-secondary/50 text-muted-foreground hover:text-white"
-                    }`}
-                  >
-                    <HeartHandshake className={`h-12 w-12 mb-4 ${role === "volunteer" ? "text-primary" : ""}`} />
-                    <span className="font-bold text-lg">I Am a Volunteer</span>
-                    <span className="text-xs text-center mt-2 opacity-80">I want to receive alerts and help people in my community.</span>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {step === 4 && (
               <div className="animate-fade-up">
                 <h2 className="text-2xl font-bold mb-2">Emergency Contacts</h2>
                 <p className="text-muted-foreground text-sm mb-6">Add a primary contact who will be instantly notified during an SOS.</p>
@@ -150,7 +117,7 @@ function Signup() {
               </div>
             )}
 
-            {step === 5 && (
+            {step === 4 && (
               <div className="animate-fade-up">
                 <h2 className="text-2xl font-bold mb-2">Medical Profile</h2>
                 <p className="text-muted-foreground text-sm mb-6">This crucial information is securely shared with first responders.</p>
@@ -173,10 +140,12 @@ function Signup() {
                 <ArrowLeft className="h-4 w-4" /> Back
               </button>
             ) : (
-              <div /> // Empty div to maintain flex spacing
+              <Link to="/login" className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-white transition-colors">
+                <ArrowLeft className="h-4 w-4" /> Back to Login
+              </Link>
             )}
 
-            {step < 5 ? (
+            {step < 4 ? (
               <GlowButton onClick={nextStep} className="px-8 flex items-center gap-2">
                 Continue <ArrowRight className="h-4 w-4" />
               </GlowButton>

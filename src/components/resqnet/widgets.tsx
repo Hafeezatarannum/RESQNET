@@ -110,8 +110,10 @@ export function MapMock({
       )}
       {route && (
         <>
-          <Marker className="bottom-[14%] left-[14%]" tone="blue" label="You" />
-          <Marker className="right-[14%] top-[12%]" tone="red" label="Help" />
+          <Marker className="bottom-[14%] left-[14%]" tone="blue" label="You (Chennai)" />
+          <Marker className="right-[14%] top-[12%]" tone="red" label="Help Needed" />
+          <Marker className="right-[40%] top-[30%]" tone="green" label="ResQ Fleet 1" />
+          <Marker className="left-[30%] bottom-[40%]" tone="green" label="ResQ Fleet 2" />
         </>
       )}
       {children}
@@ -193,9 +195,9 @@ export function VolunteerCard({
         <Pill tone="green">ETA {v.eta}</Pill>
         {actions && (
           <div className="flex gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-success/15 text-success">
+            <a href="tel:+919876543210" onClick={() => alert("Push notification triggered to responder!")} className="grid h-9 w-9 place-items-center rounded-full bg-success/15 text-success hover:bg-success/25 transition-colors">
               <Phone className="h-4 w-4" />
-            </span>
+            </a>
             <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-blue/15 text-brand-blue">
               <MessageSquare className="h-4 w-4" />
             </span>
