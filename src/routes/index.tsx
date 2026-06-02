@@ -15,6 +15,7 @@ import {
   ChevronRight,
   ShieldCheck,
   Bot,
+  Download,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -88,10 +89,13 @@ function Landing() {
               The world's most advanced emergency response platform. Instantly connect with nearby responders, hospitals, and family members with a single tap.
             </p>
 
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-4 gap-4 flex-col sm:flex-row items-center w-full max-w-sm mx-auto sm:max-w-none">
               <GlowButton to="/login" className="w-full sm:w-auto h-14 px-8 text-base shadow-xl shadow-primary/25">
-              Login
-            </GlowButton>
+                Login
+              </GlowButton>
+              <a href="/resqnet.apk" download className="flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-8 h-14 text-base font-bold text-foreground hover:bg-secondary/50 transition-colors w-full sm:w-auto">
+                <Download className="w-5 h-5" /> Download APK
+              </a>
             </div>
           </div>
         </section>

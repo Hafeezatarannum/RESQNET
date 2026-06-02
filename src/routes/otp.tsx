@@ -14,7 +14,7 @@ export const Route = createFileRoute("/otp")({
 });
 
 function Otp() {
-  const [vals, setVals] = useState(["", "", "", ""]);
+  const [vals, setVals] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const refs = useRef<(HTMLInputElement | null)[]>([]);
   useEffect(() => {
@@ -27,14 +27,14 @@ function Otp() {
     const n = [...vals];
     n[i] = v;
     setVals(n);
-    if (v && i < 3) refs.current[i + 1]?.focus();
+    if (v && i < 5) refs.current[i + 1]?.focus();
   };
   return (
     <DashboardLayout>
       <Aura />
       <TopBar
-        title="Verify your number"
-        subtitle="Enter the 4-digit code sent to +91 98765 43210"
+        title="Verify your email"
+        subtitle="Enter the 6-digit code sent to your email"
       />
       <Screen>
         <div className="mt-8 flex justify-center gap-4">

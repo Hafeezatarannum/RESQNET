@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GlowButton, Field, Logo, Wordmark } from "@/components/resqnet/kit";
-import { Phone, Lock, ShieldCheck } from "lucide-react";
+import { Mail, Lock, ShieldCheck } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 export const Route = createFileRoute("/login")({
@@ -25,10 +25,10 @@ function Login() {
 
           <div className="space-y-4">
             <Field
-              label={t("auth.phone")}
-              icon={Phone}
-              type="tel"
-              placeholder="+91 98765 43210"
+              label="Email"
+              icon={Mail}
+              type="email"
+              placeholder="you@example.com"
             />
             <Field
               label={t("auth.password")}

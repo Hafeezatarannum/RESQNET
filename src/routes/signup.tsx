@@ -26,12 +26,11 @@ function Signup() {
           </p>
 
           <div className="space-y-4">
-            <Field label="Full name" icon={User} placeholder="Aarav Sharma" />
             <Field
               label="Email"
               icon={Mail}
               type="email"
-              placeholder="aarav@example.com"
+              placeholder="you@example.com"
             />
             <Field
               label="Password"
