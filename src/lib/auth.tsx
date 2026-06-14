@@ -17,6 +17,7 @@ type AuthContextType = AuthState & {
   signOut: () => Promise<void>
   sendOtp: (email: string) => Promise<{ error: Error | null }>
   verifyOtp: (email: string, token: string) => Promise<{ error: Error | null }>
+  updatePassword: (password: string) => Promise<{ error: Error | null }>
 }
 
 // ---------------------------------------------------------------------------
@@ -101,9 +102,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { error: error as Error | null }
   }
 
+  // Update password for a logged-in user
+  const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password })
+    return { error: error as Error | null }
+  }
+
   return (
     <AuthContext.Provider
-      value={{ ...state, signUp, signIn, signInWithGoogle, signOut, sendOtp, verifyOtp }}
+      value={{ ...state, signUp, signIn, signInWithGoogle, signOut, sendOtp, verifyOtp, updatePassword }}
     >
       {children}
     </AuthContext.Provider>

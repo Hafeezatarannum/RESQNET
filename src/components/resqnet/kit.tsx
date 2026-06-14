@@ -356,18 +356,20 @@ export function TopBar({
   title,
   subtitle,
   back = true,
+  onBack,
   right,
 }: {
   title?: string;
   subtitle?: string;
   back?: boolean;
+  onBack?: () => void;
   right?: ReactNode;
 }) {
   return (
     <div className="relative z-10 flex items-center gap-3 px-5 pb-3 pt-6 bg-background/80 backdrop-blur-md border-b border-border mb-4">
       {back && (
         <button
-          onClick={() => window.history.back()}
+          onClick={onBack || (() => window.history.back())}
           className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-border bg-secondary text-foreground active:scale-95 transition-transform"
         >
           <ChevronLeft className="h-5 w-5" />

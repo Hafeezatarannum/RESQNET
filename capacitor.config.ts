@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'ResQNet',
   webDir: 'dist/client',
   server: {
-    url: 'https://resqnet-emergency.platform-needhelpers.workers.dev/?v=2',
+    url: 'https://resqnet-emergency.platform-needhelpers.workers.dev/?v=3',
     cleartext: true
   }
 };
