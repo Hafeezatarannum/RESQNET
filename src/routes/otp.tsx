@@ -65,7 +65,7 @@ function ForgotPasswordFlow() {
     setLoading(false);
 
     if (error) {
-      setError("Failed to send code. Please try again.");
+      setError(error.message || "Failed to send code. Please try again.");
     } else {
       setStep("otp");
       setTimer(30);
@@ -97,7 +97,7 @@ function ForgotPasswordFlow() {
     setError(null);
     const { error } = await sendOtp(email);
     if (error) {
-      setError("Failed to resend code.");
+      setError(error.message || "Failed to resend code.");
     } else {
       setTimer(30);
       setVals(["", "", "", "", "", ""]);
