@@ -143,7 +143,7 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 2000);
+    }, 8000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -178,7 +178,7 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
       </div>
       <div className="absolute bottom-16 flex flex-col items-center">
         <div className="h-1 w-32 bg-secondary rounded-full overflow-hidden">
-          <div className="h-full bg-primary animate-[progress_2s_ease-in-out_forwards]" />
+          <div className="h-full bg-primary animate-[progress_8s_ease-in-out_forwards]" />
         </div>
       </div>
     </div>
