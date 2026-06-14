@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { DashboardLayout } from "@/components/resqnet/kit";
 import { ShieldAlert, X, CheckCircle2, Loader2, Navigation, Users, ShieldCheck, MapPin, Phone, MessageSquare } from "lucide-react";
+import { useAuth } from "@/lib/auth";
+import { createSosEvent, cancelSosEvent } from "@/lib/api/resqnet.api";
 
 export const Route = createFileRoute("/power-sos")({
   head: () => ({ meta: [{ title: "Emergency SOS — ResQNet" }] }),
@@ -15,6 +17,8 @@ function SOSActivation() {
   const [activated, setActivated] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [respondersFound, setRespondersFound] = useState(false);
+  const [sosId, setSosId] = useState<string | null>(null);
+  const { user } = useAuth();
   
   const holdIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -54,7 +58,19 @@ function SOSActivation() {
 
   useEffect(() => {
     if (activated) {
-      // Simulate the workflow steps
+      // 1. Actually hit the Database!
+      if (user) {
+        createSosEvent({ 
+          userId: user.id, 
+          emergencyType: 'medical', 
+          severity: 'high' 
+        }).then(({ id, error }) => {
+          if (id) setSosId(id);
+          if (error) console.error("Failed to create SOS:", error);
+        });
+      }
+
+      // 2. Simulate the workflow steps visually
       const t1 = setTimeout(() => setActiveStep(1), 2000);
       const t2 = setTimeout(() => setActiveStep(2), 4000);
       const t3 = setTimeout(() => setActiveStep(3), 6000);
@@ -64,7 +80,17 @@ function SOSActivation() {
       }, 7500);
       return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
     }
-  }, [activated]);
+  }, [activated, user]);
+
+  const handleCancel = async () => {
+    if (sosId) {
+      await cancelSosEvent(sosId);
+    }
+    setActivated(false);
+    setRespondersFound(false);
+    setActiveStep(0);
+    setSosId(null);
+  };
 
   return (
     <DashboardLayout withNav>
@@ -165,7 +191,7 @@ function SOSActivation() {
 
             <div className="mt-10 pt-6 border-t border-border flex justify-center">
               <button 
-                onClick={() => setActivated(false)}
+                onClick={handleCancel}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-destructive/10 text-destructive hover:bg-destructive/20 font-bold transition-colors"
               >
                 <X className="w-5 h-5" /> Cancel SOS
@@ -230,10 +256,7 @@ function SOSActivation() {
             </div>
 
             <button 
-              onClick={() => {
-                setActivated(false);
-                setRespondersFound(false);
-              }}
+              onClick={handleCancel}
               className="w-full mt-4 py-4 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
             >
               Cancel Request
