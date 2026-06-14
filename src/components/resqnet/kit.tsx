@@ -88,6 +88,8 @@ type BtnProps = {
   full?: boolean;
   className?: string;
   icon?: LucideIcon;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 export function GlowButton({
   children,
@@ -97,6 +99,8 @@ export function GlowButton({
   full = true,
   className,
   icon: Icon,
+  disabled,
+  type = "button",
 }: BtnProps) {
   const styles = {
     primary: "bg-primary text-primary-foreground shadow-md glow-red",
@@ -118,7 +122,7 @@ export function GlowButton({
       {children}
     </>
   );
-  if (to) {
+  if (to && !disabled) {
     return (
       <Link to={to} className={cls}>
         {inner}
@@ -126,7 +130,7 @@ export function GlowButton({
     );
   }
   return (
-    <button type="button" onClick={onClick} className={cls}>
+    <button type={type} onClick={onClick} className={cls} disabled={disabled}>
       {inner}
     </button>
   );

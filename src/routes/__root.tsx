@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeProvider, useTheme } from "@/lib/theme";
 import { RoleProvider } from "@/lib/role";
 import { I18nProvider } from "@/lib/i18n";
+import { AuthProvider } from "@/lib/auth";
 import { ShieldPlus, Sun, Moon, ArrowRight } from "lucide-react";
 
 function NotFoundComponent() {
@@ -203,14 +204,16 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="resqnet-theme">
-        <RoleProvider>
-          <I18nProvider>
-            <Outlet />
-            {showSplash && (
-              <SplashScreen onComplete={handleSplashComplete} />
-            )}
-          </I18nProvider>
-        </RoleProvider>
+        <AuthProvider>
+          <RoleProvider>
+            <I18nProvider>
+              <Outlet />
+              {showSplash && (
+                <SplashScreen onComplete={handleSplashComplete} />
+              )}
+            </I18nProvider>
+          </RoleProvider>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

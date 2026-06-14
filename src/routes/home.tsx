@@ -18,6 +18,8 @@ import { useState } from "react";
 import { useTranslation } from "@/lib/i18n";
 import { useRole } from "@/lib/role";
 import { cn } from "@/lib/utils";
+import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { useAuth } from "@/lib/auth";
 
 export const Route = createFileRoute("/home")({
   head: () => ({ meta: [{ title: "Home — ResQNet" }] }),
@@ -26,24 +28,42 @@ export const Route = createFileRoute("/home")({
 
 function Dashboard() {
   const { role } = useRole();
+  const { user, loading } = useRequireAuth(); // 🔒 Redirect if not logged in
+
+  if (loading) {
+    return (
+      <DashboardLayout withNav>
+        <div className="flex h-screen items-center justify-center">
+          <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   return (
     <DashboardLayout withNav>
       <div className="relative z-10 w-full max-w-md mx-auto p-4 md:p-6 space-y-6 pt-8 pb-20">
-        {role === "volunteer" ? <VolunteerHome /> : <UserHome />}
+        {role === "volunteer" ? <VolunteerHome user={user} /> : <UserHome user={user} />}
       </div>
     </DashboardLayout>
   );
 }
 
-function UserHome() {
+function UserHome({ user }: { user: ReturnType<typeof useAuth>['user'] }) {
+  const firstName = user?.user_metadata?.full_name?.split(' ')[0] 
+    ?? user?.email?.split('@')[0] 
+    ?? 'there';
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+
   return (
     <div className="flex flex-col gap-6">
       {/* Greeting & Status */}
       <div className="flex flex-col gap-1 text-center">
-        <h1 className="text-2xl font-bold tracking-tight">Good Morning, Aarav</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{greeting}, {firstName} 👋</h1>
         <p className="text-muted-foreground">Current Status: <span className="text-success font-medium">Safe</span></p>
         <p className="text-xs text-muted-foreground flex items-center justify-center gap-1 mt-1">
-          <MapIcon className="h-3 w-3" /> Bangalore
+          <MapIcon className="h-3 w-3" /> Locating...
         </p>
       </div>
 
@@ -99,8 +119,9 @@ function UserHome() {
   );
 }
 
-function VolunteerHome() {
+function VolunteerHome({ user }: { user: ReturnType<typeof useAuth>['user'] }) {
   const [isAvailable, setIsAvailable] = useState(true);
+
 
   return (
     <div className="flex flex-col gap-6">
